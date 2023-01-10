@@ -15,5 +15,5 @@ spec:
         app: go-helloworld-2
     spec:
       containers:
-      - image: abesoichiro/go-helloworld-2
+      - image: pechali/go-helloworld-2
         name: go-helloworld-2
