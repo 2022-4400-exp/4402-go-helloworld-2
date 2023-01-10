@@ -14,7 +14,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      
+
+
       - name: Set up Docker Buildx
         id: buildx
         uses: crazy-max/ghaction-docker-buildx@v3
@@ -22,9 +23,9 @@ jobs:
           buildx-version: latest
           qemu-version: latest
 
-      - name: Build Docker image
+      - name: Build and Publish
         run: |
-          docker build . -t ghcr.io/2022-4400-exp/4402-go-helloworld-2:${{ github.sha }}
-          docker push ghcr.io/2022-4400-exp/4402-go-helloworld-2:${{ github.sha }}
-        with:
-          platforms: linux/amd64,linux/arm64
+          docker buildx build \
+            --push \
+            --platform linux/arm/v7,linux/amd64 \
+            -t ghcr.io/2022-4400-exp/4402-go-helloworld-2:${{ github.sha }} .
